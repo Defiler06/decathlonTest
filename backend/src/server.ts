@@ -101,13 +101,13 @@ io.on('connection', (socket) => {
         });
     });
 
-    socket.on('CheckGeneratedQr', (username) => {
+    socket.on('CheckGeneratedQr', (data) => {
         setInterval(() => {
-            const lastGeneratedTime = qrGenerationTimes[username];
+            const lastGeneratedTime = qrGenerationTimes[data.username];
             const currentTime = Date.now();
 
             if (!lastGeneratedTime || currentTime - lastGeneratedTime > QR_EXPIRY_TIME) {
-                createNewQrCode(username, currentTime, socket);
+                createNewQrCode(data.username, currentTime, socket);
             } else {
                 console.log(`Время еще не прошло`);
             }
